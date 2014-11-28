@@ -1,0 +1,32 @@
+#!/bin/sh
+# postinst script for log-courier-gem
+
+set -e
+
+case "$1" in
+    configure)
+	if [ ! -d /opt/logstash ]; then
+		echo "Logstash is not installed in /opt/logstash"
+		echo "Cannot automatically install gem"
+	else
+		(
+		cd /opt/logstash
+		export GEM_HOME=vendor/bundle/jruby/1.9
+		java -jar vendor/jar/jruby-complete-1.7.11.jar -S gem install /usr/lib/log-courier-gem/log-courier-0.15.gem
+		)
+	fi
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0
+

@@ -1,0 +1,3 @@
+usr/lib/log-courier-gem
+opt/logstash/lib/logstash/inputs/
+opt/logstash/lib/logstash/outputs/
